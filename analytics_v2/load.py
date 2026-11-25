@@ -43,6 +43,22 @@ def main(data,db):
             for col in columns:
                 if col not in df.columns:df[col]=None
             df=df[columns].copy()
+            # Remove exact duplicates; quarantine every conflicting key rather than inventing a value.
+            raw_count=len(df)
+            df=df.drop_duplicates().copy()
+            exact_duplicates=raw_count-len(df)
+            keys={"dimCoin":["keyCoin"],"dimTime":["keyTime"],"dimCompany":["keyCompany"],
+                  "factCoins":["keyTime","keyCoin"],"factStocks":["keyTime","keyCompany"]}[name]
+            conflicts=df.duplicated(subset=keys,keep=False)
+            conflict_count=int(conflicts.sum())
+            if conflict_count:
+                if not name.startswith("fact"):
+                    raise ValueError(f"{name}: {conflict_count} conflicting dimension rows")
+                quarantine=db.parent/"quarantine"
+                quarantine.mkdir(parents=True,exist_ok=True)
+                df.loc[conflicts].to_csv(quarantine/(name+"_conflicting_keys.csv"),index=False)
+                df=df.loc[~conflicts].copy()
+            print(json.dumps({"table":name,"source_rows":raw_count,"exact_duplicates_removed":exact_duplicates,"conflicting_rows_quarantined":conflict_count,"loaded_rows":len(df)}),flush=True)
             # Use executemany to retain schema constraints, rather than replacing tables.
             vals=df.astype(object).where(df.notna(),None)
             c.executemany("INSERT INTO "+name+" VALUES ("+",".join("?" for _ in columns)+")",vals.itertuples(index=False,name=None))
