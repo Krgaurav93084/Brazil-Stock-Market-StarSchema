@@ -21,10 +21,20 @@ def run(db,out):
     numeric=["open_price","close_price","high_price","low_price","volume"]
     for col in numeric:d[col]=pd.to_numeric(d[col],errors="coerce")
     bad=(d[numeric].isna().any(axis=1)|d.trade_date.isna()|(d[["open_price","close_price","high_price","low_price"]]<=0).any(axis=1)|(d.volume<0)|(d.high_price<d[["open_price","close_price","low_price"]].max(axis=1))|(d.low_price>d[["open_price","close_price"]].min(axis=1)))
-    quality={"table_counts":counts,"foreign_key_violations":fk,"matched_rows":len(d),"unmatched_stock_rows":counts["factStocks"]-len(d),"duplicate_company_date":int(duplicate.sum()),"invalid_rows":int(bad.sum()),"accepted_rows":int((~(bad|duplicate)).sum())}
+    # Trading quantity is an integer count of units, not floating-point money.
+    # Exclude non-integral/non-finite or out-of-range source values explicitly.
+    quantity=d.volume
+    fractional_or_invalid_volume=(quantity.notna() & (~np.isfinite(quantity) | (quantity % 1 != 0) | (quantity >= 2**63)))
+    bad=bad | fractional_or_invalid_volume
+    quality={"fractional_or_invalid_volume_rows":int(fractional_or_invalid_volume.sum()),"table_counts":counts,"foreign_key_violations":fk,"matched_rows":len(d),"unmatched_stock_rows":counts["factStocks"]-len(d),"duplicate_company_date":int(duplicate.sum()),"invalid_rows":int(bad.sum()),"accepted_rows":int((~(bad|duplicate)).sum())}
     d.loc[bad|duplicate].to_csv(out/"rejected.csv",index=False)
     d=d.loc[~(bad|duplicate)].copy()
     if d.empty:raise ValueError("No valid stock observations")
+    d["volume"]=d.volume.astype("int64")
+    exact_total=sum(int(x) for x in d.volume)
+    if exact_total>np.iinfo(np.int64).max:
+        raise OverflowError("Trading volume exceeds signed 64-bit aggregation range")
+    quality["accepted_volume_units"]=exact_total
     d["sectorCompany"]=d.sectorCompany.fillna("Unknown")
     g=d.groupby("keyCompany")
     d["daily_return"]=g.close_price.pct_change(fill_method=None)
@@ -42,6 +52,9 @@ def run(db,out):
         return a.drop(columns="period_index")
     monthly,yearly=period_table("month"),period_table("year")
     sectors=d.groupby("sectorCompany").agg(volume=("volume","sum"),mean_daily_return=("daily_return","mean"),observations=("daily_return","count")).reset_index()
+    for label,frame in [("monthly",monthly),("yearly",yearly),("sector",sectors)]:
+        actual=sum(int(x) for x in frame.volume)
+        assert actual==exact_total,(label,actual,exact_total)
     d.to_csv(out/"stock_daily.csv",index=False);monthly.to_csv(out/"stock_monthly.csv",index=False);yearly.to_csv(out/"stock_yearly.csv",index=False);sectors.to_csv(out/"sectors.csv",index=False)
     (out/"quality.json").write_text(json.dumps(quality,indent=2))
     top=sectors.loc[sectors.volume.idxmax()]
