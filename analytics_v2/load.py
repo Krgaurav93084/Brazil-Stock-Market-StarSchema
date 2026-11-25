@@ -16,9 +16,33 @@ def main(data,db):
         counts={}
         for name,df in frames.items():
             columns=[x[1] for x in c.execute("PRAGMA table_info("+name+")")]
-            if not set(columns).issubset(df.columns): raise ValueError(f"{name}: map headers to {columns}")
+            # Source releases can differ in optional descriptive calendar fields.
+            # Normalize case/whitespace, preserve identifiers, derive calendar attributes from actual dates.
+            normalized={str(x).strip().lower():x for x in df.columns}
+            df=df.rename(columns={normalized[x.lower()]:x for x in columns if x.lower() in normalized})
+            print(name,"source headers",list(df.columns),flush=True)
+            if name=="dimTime":
+                if not {"keyTime","dateTime"}.issubset(df.columns):
+                    raise ValueError(f"Missing required calendar key/date; source headers: {list(df.columns)}")
+                dt=pd.to_datetime(df.dateTime,errors="raise")
+                derived={"dayTime":dt.dt.day,"dayWeekTime":dt.dt.dayofweek+1,
+                    "dayWeekAbbrevTime":dt.dt.day_name().str[:3],"dayWeekCompleteTime":dt.dt.day_name(),
+                    "monthTime":dt.dt.month,"monthAbbrevTime":dt.dt.month_name().str[:3],
+                    "monthCompleteTime":dt.dt.month_name(),"bimonthTime":(dt.dt.month-1)//2+1,
+                    "quarterTime":dt.dt.quarter,"semesterTime":(dt.dt.month-1)//6+1,"yearTime":dt.dt.year}
+                for col,value in derived.items():
+                    if col not in df.columns:df[col]=value
+                df["dateTime"]=dt.dt.strftime("%Y-%m-%d")
+            required={"dimCoin":{"keyCoin","abbrevCoin","nameCoin"},
+                      "dimTime":{"keyTime","dateTime"},
+                      "dimCompany":{"keyCompany","stockCodeCompany","nameCompany","sectorCompany"},
+                      "factCoins":{"keyTime","keyCoin","valueCoin"},
+                      "factStocks":set(columns)}[name]
+            missing=required-set(df.columns)
+            if missing:raise ValueError(f"{name}: required columns missing {missing}; source headers: {list(df.columns)}")
+            for col in columns:
+                if col not in df.columns:df[col]=None
             df=df[columns].copy()
-            if name=="dimTime": df["dateTime"]=pd.to_datetime(df.dateTime,errors="raise").dt.strftime("%Y-%m-%d")
             # Use executemany to retain schema constraints, rather than replacing tables.
             vals=df.astype(object).where(df.notna(),None)
             c.executemany("INSERT INTO "+name+" VALUES ("+",".join("?" for _ in columns)+")",vals.itertuples(index=False,name=None))
