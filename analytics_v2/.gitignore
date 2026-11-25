@@ -1,0 +1,4 @@
+output/
+*.sqlite
+*.db
+__pycache__/
