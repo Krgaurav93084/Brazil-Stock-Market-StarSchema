@@ -6,4 +6,9 @@ Use the original schema.sql and licensed historical dataset to populate a SQLite
 2. Install dependencies: python -m pip install -r analytics_v2/requirements.txt
 3. Load: python analytics_v2/load.py path/to/csvs warehouse.sqlite
 4. Analyze: python analytics_v2/market_kpis.py warehouse.sqlite --output analytics_v2/output
-5. Inspect quality.json, rejected.csv, stock_daily.csv, stock_monthly.csv, stock_yearly.csv, sectors.csv, findings.md and dashboard.png. See [Power BI measures](power_bi.md). Actual dataset counts, findings and dashboard are not yet generated or verified. Returns are unadjusted and may span missing trading observations; monthly/yearly calculations require contiguous observed periods.
+5. Inspect quality.json, rejected.csv, stock_daily.csv, stock_monthly.csv, stock_yearly.csv, sectors.csv, findings.md and dashboard.png. See [Power BI measures](power_bi.md). Historical dataset execution and volume reconciliation passed; see the verified results below. Returns are unadjusted and may span missing trading observations; monthly/yearly calculations require contiguous observed periods.
+
+## Verified historical analysis — 25 November 2026
+![Verified historical analytics dashboard](verified_dashboard.svg)
+[Five calculated findings and data-quality limitations](verified_findings.md) · [Successful validation](https://github.com/Krgaurav93084/Brazil-Stock-Market-StarSchema/actions/runs/45622924712) · [Generated PNG and CSV results](https://github.com/Krgaurav93084/Brazil-Stock-Market-StarSchema/actions/runs/45622924712/artifacts/15026451655) (retention applies).
+680,150 source stock records, 655,764 accepted observations, 446 company identifiers. Reconciliation uses exact integer volume; 24,386 rows excluded, including 24,383 outside the integer-volume policy. Source classifications are not necessarily industries. Report is a historical analytical case study, not an investment recommendation or Power BI Desktop screenshot.
