@@ -1,0 +1,9 @@
+metric,value,unit
+Source stock records,680150,count
+Accepted stock records,655764,count
+Excluded stock records,24386,count
+Company identifiers,446,count
+Integer-policy exclusions,24383,count
+Accepted volume,22521332828182,units
+Peak company-day volume,10996395951,units
+Median rolling volatility,0.02262,ratio
