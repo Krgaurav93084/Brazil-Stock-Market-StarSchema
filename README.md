@@ -75,4 +75,9 @@ The dataset is split into **2 fact tables** and **3 dimension tables**:
   https://www.kaggle.com/datasets/leomauro/brazilian-stock-market-data-warehouse
 
 ## Historical analytics upgrade
-See [analytics_v2](analytics_v2/README.md) for the loader, quality checks, rolling statistics, monthly and yearly returns, DAX and findings generation. Data must be downloaded; native Power BI workbook is not included.
+See [analytics_v2](analytics_v2/README.md) for the loader, quality checks, rolling statistics, monthly and yearly returns, DAX and findings generation. The original dataset has been downloaded and analyzed in a successful validation run. Native Power BI workbook is not included.
+
+## Verified historical analysis — 25 November 2026
+![Verified historical analytics dashboard](analytics_v2/verified_dashboard.svg)
+[Five calculated findings and data-quality limitations](analytics_v2/verified_findings.md) · [Successful validation](https://github.com/Krgaurav93084/Brazil-Stock-Market-StarSchema/actions/runs/45622924712) · [Generated PNG and CSV results](https://github.com/Krgaurav93084/Brazil-Stock-Market-StarSchema/actions/runs/45622924712/artifacts/15026451655) (retention applies).
+680,150 source stock records, 655,764 accepted observations, 446 company identifiers. Reconciliation uses exact integer volume; 24,386 rows excluded, including 24,383 outside the integer-volume policy. Source classifications are not necessarily industries. Report is a historical analytical case study, not an investment recommendation or Power BI Desktop screenshot.
