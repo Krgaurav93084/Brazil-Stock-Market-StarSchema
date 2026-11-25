@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "0000000000000000006c",
+  "position": {
+    "x": 965,
+    "y": 175,
+    "z": 8,
+    "height": 130,
+    "width": 295,
+    "tabOrder": 8
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "VerifiedKPI"
+                    }
+                  },
+                  "Property": "Peak Company Day Volume"
+                }
+              },
+              "queryRef": "VerifiedKPI.Peak Company Day Volume",
+              "nativeQueryRef": "Peak Company Day Volume"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

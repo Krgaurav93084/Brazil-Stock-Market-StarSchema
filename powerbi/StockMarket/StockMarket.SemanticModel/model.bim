@@ -1,0 +1,104 @@
+{
+  "name": "StockMarket",
+  "compatibilityLevel": 1600,
+  "model": {
+    "culture": "en-US",
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "en-US",
+    "tables": [
+      {
+        "name": "VerifiedKPI",
+        "columns": [
+          {
+            "name": "metric",
+            "dataType": "string",
+            "sourceColumn": "metric",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "value",
+            "dataType": "double",
+            "sourceColumn": "value",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "unit",
+            "dataType": "string",
+            "sourceColumn": "unit",
+            "summarizeBy": "none"
+          }
+        ],
+        "measures": [
+          {
+            "name": "Source Records",
+            "expression": "CALCULATE(MAX('VerifiedKPI'[value]), 'VerifiedKPI'[metric] = \"Source stock records\")",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Accepted Records",
+            "expression": "CALCULATE(MAX('VerifiedKPI'[value]), 'VerifiedKPI'[metric] = \"Accepted stock records\")",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Excluded Records",
+            "expression": "CALCULATE(MAX('VerifiedKPI'[value]), 'VerifiedKPI'[metric] = \"Excluded stock records\")",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Company Identifiers",
+            "expression": "CALCULATE(MAX('VerifiedKPI'[value]), 'VerifiedKPI'[metric] = \"Company identifiers\")",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Integer Policy Exclusions",
+            "expression": "CALCULATE(MAX('VerifiedKPI'[value]), 'VerifiedKPI'[metric] = \"Integer-policy exclusions\")",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Accepted Volume",
+            "expression": "CALCULATE(MAX('VerifiedKPI'[value]), 'VerifiedKPI'[metric] = \"Accepted volume\")",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Peak Company Day Volume",
+            "expression": "CALCULATE(MAX('VerifiedKPI'[value]), 'VerifiedKPI'[metric] = \"Peak company-day volume\")",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Median Volatility",
+            "expression": "CALCULATE(MAX('VerifiedKPI'[value]), 'VerifiedKPI'[metric] = \"Median rolling volatility\")",
+            "formatString": "0.00%"
+          },
+          {
+            "name": "Accepted Rate",
+            "expression": "DIVIDE([Accepted Records],[Source Records])",
+            "formatString": "0.00%"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "VerifiedKPI",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(Web.Contents(\"https://raw.githubusercontent.com/Krgaurav93084/Brazil-Stock-Market-StarSchema/main/analytics_v2/verified_kpis.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Types = Table.TransformColumnTypes(Headers, {{\"metric\", type text}, {\"value\", type number}, {\"unit\", type text}}, \"en-US\")",
+                "in",
+                "    Types"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"VerifiedKPI\"]"
+      }
+    ]
+  }
+}

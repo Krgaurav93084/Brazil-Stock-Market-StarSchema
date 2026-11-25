@@ -1,0 +1,13 @@
+// Run in Power BI Desktop DAX Query View after Refresh.
+EVALUATE
+ROW(
+    "Source Records", [Source Records],
+    "Accepted Records", [Accepted Records],
+    "Excluded Records", [Excluded Records],
+    "Company Identifiers", [Company Identifiers],
+    "Integer Policy Exclusions", [Integer Policy Exclusions],
+    "Accepted Volume", [Accepted Volume],
+    "Peak Company Day Volume", [Peak Company Day Volume],
+    "Median Volatility", [Median Volatility],
+    "Accepted Rate", [Accepted Rate]
+)

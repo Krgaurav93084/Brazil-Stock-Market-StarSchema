@@ -1,0 +1,69 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "0000000000000000006e",
+  "position": {
+    "x": 20,
+    "y": 480,
+    "z": 10,
+    "height": 215,
+    "width": 1240,
+    "tabOrder": 10
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "VerifiedKPI"
+                    }
+                  },
+                  "Property": "metric"
+                }
+              },
+              "queryRef": "VerifiedKPI.metric",
+              "nativeQueryRef": "metric",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "VerifiedKPI"
+                    }
+                  },
+                  "Property": "value"
+                }
+              },
+              "queryRef": "VerifiedKPI.value",
+              "nativeQueryRef": "value",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "VerifiedKPI"
+                    }
+                  },
+                  "Property": "unit"
+                }
+              },
+              "queryRef": "VerifiedKPI.unit",
+              "nativeQueryRef": "unit",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

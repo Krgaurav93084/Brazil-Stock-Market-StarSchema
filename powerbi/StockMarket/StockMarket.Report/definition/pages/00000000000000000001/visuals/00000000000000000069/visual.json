@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "00000000000000000069",
+  "position": {
+    "x": 20,
+    "y": 175,
+    "z": 5,
+    "height": 130,
+    "width": 295,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "VerifiedKPI"
+                    }
+                  },
+                  "Property": "Excluded Records"
+                }
+              },
+              "queryRef": "VerifiedKPI.Excluded Records",
+              "nativeQueryRef": "Excluded Records"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
