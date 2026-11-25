@@ -73,3 +73,6 @@ The dataset is split into **2 fact tables** and **3 dimension tables**:
   guru99.com.
 - Kaggle. (n.d.). *Brazilian Stock Market - Data Warehouse.*
   https://www.kaggle.com/datasets/leomauro/brazilian-stock-market-data-warehouse
+
+## Historical analytics upgrade
+See [analytics_v2](analytics_v2/README.md) for the loader, quality checks, rolling statistics, monthly and yearly returns, DAX and findings generation. Data must be downloaded; native Power BI workbook is not included.
