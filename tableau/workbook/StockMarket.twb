@@ -1,0 +1,564 @@
+<?xml version='1.0' encoding='utf-8'?>
+<workbook original-version="18.1" version="18.1" source-platform="mac" xmlns:user="http://www.tableausoftware.com/xml/user">
+  <style-theme name="clean" />
+  <datasources>
+    <datasource caption="kpi" inline="true" name="textscan.kpi" version="18.1">
+      <connection class="textscan" directory="Data" filename="kpi.csv" password="" server="">
+        <relation name="kpi#csv" table="[kpi#csv]" type="table">
+          <columns character-set="UTF-8" header="yes" locale="en_US" separator=",">
+            <column datatype="integer" name="loaded" ordinal="0" />
+            <column datatype="integer" name="accepted" ordinal="1" />
+            <column datatype="integer" name="companies" ordinal="2" />
+            <column datatype="real" name="acceptance_pct" ordinal="3" />
+          </columns>
+        </relation>
+        <metadata-records>
+          <metadata-record class="column">
+            <remote-name>loaded</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[loaded]</local-name>
+            <parent-name>[kpi#csv]</parent-name>
+            <remote-alias>loaded</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>false</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>accepted</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[accepted]</local-name>
+            <parent-name>[kpi#csv]</parent-name>
+            <remote-alias>accepted</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>false</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>companies</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[companies]</local-name>
+            <parent-name>[kpi#csv]</parent-name>
+            <remote-alias>companies</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>false</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>acceptance_pct</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[acceptance_pct]</local-name>
+            <parent-name>[kpi#csv]</parent-name>
+            <remote-alias>acceptance_pct</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>false</contains-null>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled="yes" />
+      <column caption="Source stock records" datatype="integer" name="[loaded]" role="measure" type="quantitative" />
+      <column caption="Accepted stock records" datatype="integer" name="[accepted]" role="measure" type="quantitative" />
+      <column caption="Company identifiers" datatype="integer" name="[companies]" role="measure" type="quantitative" />
+      <column caption="Acceptance (%)" datatype="real" name="[acceptance_pct]" role="measure" type="quantitative" />
+    </datasource>
+    <datasource caption="volume" inline="true" name="textscan.volume" version="18.1">
+      <connection class="textscan" directory="Data" filename="volume.csv" password="" server="">
+        <relation name="volume#csv" table="[volume#csv]" type="table">
+          <columns character-set="UTF-8" header="yes" locale="en_US" separator=",">
+            <column datatype="string" name="category" ordinal="0" />
+            <column datatype="real" name="amount" ordinal="1" />
+          </columns>
+        </relation>
+        <metadata-records>
+          <metadata-record class="column">
+            <remote-name>category</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[category]</local-name>
+            <parent-name>[volume#csv]</parent-name>
+            <remote-alias>category</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>false</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>amount</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[amount]</local-name>
+            <parent-name>[volume#csv]</parent-name>
+            <remote-alias>amount</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>false</contains-null>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled="yes" />
+      <column caption="Source classification" datatype="string" name="[category]" role="dimension" type="nominal" />
+      <column caption="Top classification volume (units)" datatype="real" name="[amount]" role="measure" type="quantitative" />
+    </datasource>
+    <datasource caption="returns" inline="true" name="textscan.returns" version="18.1">
+      <connection class="textscan" directory="Data" filename="returns.csv" password="" server="">
+        <relation name="returns#csv" table="[returns#csv]" type="table">
+          <columns character-set="UTF-8" header="yes" locale="en_US" separator=",">
+            <column datatype="string" name="category" ordinal="0" />
+            <column datatype="real" name="amount" ordinal="1" />
+          </columns>
+        </relation>
+        <metadata-records>
+          <metadata-record class="column">
+            <remote-name>category</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[category]</local-name>
+            <parent-name>[returns#csv]</parent-name>
+            <remote-alias>category</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>false</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>amount</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[amount]</local-name>
+            <parent-name>[returns#csv]</parent-name>
+            <remote-alias>amount</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>false</contains-null>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled="yes" />
+      <column caption="Source classification" datatype="string" name="[category]" role="dimension" type="nominal" />
+      <column caption="Mean unadjusted price change (%)" datatype="real" name="[amount]" role="measure" type="quantitative" />
+    </datasource>
+    <datasource caption="observations" inline="true" name="textscan.observations" version="18.1">
+      <connection class="textscan" directory="Data" filename="observations.csv" password="" server="">
+        <relation name="observations#csv" table="[observations#csv]" type="table">
+          <columns character-set="UTF-8" header="yes" locale="en_US" separator=",">
+            <column datatype="string" name="category" ordinal="0" />
+            <column datatype="real" name="amount" ordinal="1" />
+          </columns>
+        </relation>
+        <metadata-records>
+          <metadata-record class="column">
+            <remote-name>category</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[category]</local-name>
+            <parent-name>[observations#csv]</parent-name>
+            <remote-alias>category</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>false</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>amount</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[amount]</local-name>
+            <parent-name>[observations#csv]</parent-name>
+            <remote-alias>amount</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>false</contains-null>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled="yes" />
+      <column caption="Source classification" datatype="string" name="[category]" role="dimension" type="nominal" />
+      <column caption="Top return observation counts" datatype="real" name="[amount]" role="measure" type="quantitative" />
+    </datasource>
+    <datasource caption="quality" inline="true" name="textscan.quality" version="18.1">
+      <connection class="textscan" directory="Data" filename="quality.csv" password="" server="">
+        <relation name="quality#csv" table="[quality#csv]" type="table">
+          <columns character-set="UTF-8" header="yes" locale="en_US" separator=",">
+            <column datatype="string" name="category" ordinal="0" />
+            <column datatype="integer" name="amount" ordinal="1" />
+          </columns>
+        </relation>
+        <metadata-records>
+          <metadata-record class="column">
+            <remote-name>category</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[category]</local-name>
+            <parent-name>[quality#csv]</parent-name>
+            <remote-alias>category</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>false</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>amount</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[amount]</local-name>
+            <parent-name>[quality#csv]</parent-name>
+            <remote-alias>amount</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>false</contains-null>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled="yes" />
+      <column caption="Quality outcome" datatype="string" name="[category]" role="dimension" type="nominal" />
+      <column caption="Rows" datatype="integer" name="[amount]" role="measure" type="quantitative" />
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name="Source stock records">
+      <table>
+        <view>
+          <datasources>
+            <datasource caption="kpi" name="textscan.kpi" />
+          </datasources>
+          <datasource-dependencies datasource="textscan.kpi">
+            <column caption="Source stock records" datatype="integer" name="[loaded]" role="measure" type="quantitative" />
+            <column-instance column="[loaded]" derivation="Sum" name="[sum:loaded:qk]" pivot="key" type="quantitative" />
+          </datasource-dependencies>
+          <aggregation value="true" />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option="selection-relaxation-allow">
+            <view>
+              <breakdown value="auto" />
+            </view>
+            <mark class="Text" />
+            <encodings>
+              <text column="[textscan.kpi].[sum:loaded:qk]" />
+            </encodings>
+            <style>
+              <style-rule element="mark">
+                <format attr="color" value="#247B94" />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows />
+        <cols />
+      </table>
+    </worksheet>
+    <worksheet name="Accepted stock records">
+      <table>
+        <view>
+          <datasources>
+            <datasource caption="kpi" name="textscan.kpi" />
+          </datasources>
+          <datasource-dependencies datasource="textscan.kpi">
+            <column caption="Accepted stock records" datatype="integer" name="[accepted]" role="measure" type="quantitative" />
+            <column-instance column="[accepted]" derivation="Sum" name="[sum:accepted:qk]" pivot="key" type="quantitative" />
+          </datasource-dependencies>
+          <aggregation value="true" />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option="selection-relaxation-allow">
+            <view>
+              <breakdown value="auto" />
+            </view>
+            <mark class="Text" />
+            <encodings>
+              <text column="[textscan.kpi].[sum:accepted:qk]" />
+            </encodings>
+            <style>
+              <style-rule element="mark">
+                <format attr="color" value="#247B94" />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows />
+        <cols />
+      </table>
+    </worksheet>
+    <worksheet name="Company identifiers">
+      <table>
+        <view>
+          <datasources>
+            <datasource caption="kpi" name="textscan.kpi" />
+          </datasources>
+          <datasource-dependencies datasource="textscan.kpi">
+            <column caption="Company identifiers" datatype="integer" name="[companies]" role="measure" type="quantitative" />
+            <column-instance column="[companies]" derivation="Sum" name="[sum:companies:qk]" pivot="key" type="quantitative" />
+          </datasource-dependencies>
+          <aggregation value="true" />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option="selection-relaxation-allow">
+            <view>
+              <breakdown value="auto" />
+            </view>
+            <mark class="Text" />
+            <encodings>
+              <text column="[textscan.kpi].[sum:companies:qk]" />
+            </encodings>
+            <style>
+              <style-rule element="mark">
+                <format attr="color" value="#247B94" />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows />
+        <cols />
+      </table>
+    </worksheet>
+    <worksheet name="Acceptance (%)">
+      <table>
+        <view>
+          <datasources>
+            <datasource caption="kpi" name="textscan.kpi" />
+          </datasources>
+          <datasource-dependencies datasource="textscan.kpi">
+            <column caption="Acceptance (%)" datatype="real" name="[acceptance_pct]" role="measure" type="quantitative" />
+            <column-instance column="[acceptance_pct]" derivation="Sum" name="[sum:acceptance_pct:qk]" pivot="key" type="quantitative" />
+          </datasource-dependencies>
+          <aggregation value="true" />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option="selection-relaxation-allow">
+            <view>
+              <breakdown value="auto" />
+            </view>
+            <mark class="Text" />
+            <encodings>
+              <text column="[textscan.kpi].[sum:acceptance_pct:qk]" />
+            </encodings>
+            <style>
+              <style-rule element="mark">
+                <format attr="color" value="#247B94" />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows />
+        <cols />
+      </table>
+    </worksheet>
+    <worksheet name="Top classification volume (units)">
+      <table>
+        <view>
+          <datasources>
+            <datasource caption="volume" name="textscan.volume" />
+          </datasources>
+          <datasource-dependencies datasource="textscan.volume">
+            <column caption="Top classification volume (units)" datatype="real" name="[amount]" role="measure" type="quantitative" />
+            <column caption="Source classification" datatype="string" name="[category]" role="dimension" type="nominal" />
+            <column-instance column="[amount]" derivation="Sum" name="[sum:amount:qk]" pivot="key" type="quantitative" />
+            <column-instance column="[category]" derivation="None" name="[none:category:nk]" pivot="key" type="nominal" />
+          </datasource-dependencies>
+          <aggregation value="true" />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option="selection-relaxation-allow">
+            <view>
+              <breakdown value="auto" />
+            </view>
+            <mark class="Bar" />
+            <style>
+              <style-rule element="mark">
+                <format attr="color" value="#247B94" />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[textscan.volume].[none:category:nk]</rows>
+        <cols>[textscan.volume].[sum:amount:qk]</cols>
+      </table>
+    </worksheet>
+    <worksheet name="Mean unadjusted price change (%)">
+      <table>
+        <view>
+          <datasources>
+            <datasource caption="returns" name="textscan.returns" />
+          </datasources>
+          <datasource-dependencies datasource="textscan.returns">
+            <column caption="Mean unadjusted price change (%)" datatype="real" name="[amount]" role="measure" type="quantitative" />
+            <column caption="Source classification" datatype="string" name="[category]" role="dimension" type="nominal" />
+            <column-instance column="[amount]" derivation="Sum" name="[sum:amount:qk]" pivot="key" type="quantitative" />
+            <column-instance column="[category]" derivation="None" name="[none:category:nk]" pivot="key" type="nominal" />
+          </datasource-dependencies>
+          <aggregation value="true" />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option="selection-relaxation-allow">
+            <view>
+              <breakdown value="auto" />
+            </view>
+            <mark class="Bar" />
+            <style>
+              <style-rule element="mark">
+                <format attr="color" value="#247B94" />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[textscan.returns].[none:category:nk]</rows>
+        <cols>[textscan.returns].[sum:amount:qk]</cols>
+      </table>
+    </worksheet>
+    <worksheet name="Top return observation counts">
+      <table>
+        <view>
+          <datasources>
+            <datasource caption="observations" name="textscan.observations" />
+          </datasources>
+          <datasource-dependencies datasource="textscan.observations">
+            <column caption="Top return observation counts" datatype="real" name="[amount]" role="measure" type="quantitative" />
+            <column caption="Source classification" datatype="string" name="[category]" role="dimension" type="nominal" />
+            <column-instance column="[amount]" derivation="Sum" name="[sum:amount:qk]" pivot="key" type="quantitative" />
+            <column-instance column="[category]" derivation="None" name="[none:category:nk]" pivot="key" type="nominal" />
+          </datasource-dependencies>
+          <aggregation value="true" />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option="selection-relaxation-allow">
+            <view>
+              <breakdown value="auto" />
+            </view>
+            <mark class="Bar" />
+            <style>
+              <style-rule element="mark">
+                <format attr="color" value="#247B94" />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[textscan.observations].[none:category:nk]</rows>
+        <cols>[textscan.observations].[sum:amount:qk]</cols>
+      </table>
+    </worksheet>
+    <worksheet name="Quality outcomes">
+      <table>
+        <view>
+          <datasources>
+            <datasource caption="quality" name="textscan.quality" />
+          </datasources>
+          <datasource-dependencies datasource="textscan.quality">
+            <column caption="Rows" datatype="integer" name="[amount]" role="measure" type="quantitative" />
+            <column caption="Quality outcome" datatype="string" name="[category]" role="dimension" type="nominal" />
+            <column-instance column="[amount]" derivation="Sum" name="[sum:amount:qk]" pivot="key" type="quantitative" />
+            <column-instance column="[category]" derivation="None" name="[none:category:nk]" pivot="key" type="nominal" />
+          </datasource-dependencies>
+          <aggregation value="true" />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option="selection-relaxation-allow">
+            <view>
+              <breakdown value="auto" />
+            </view>
+            <mark class="Bar" />
+            <style>
+              <style-rule element="mark">
+                <format attr="color" value="#247B94" />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[textscan.quality].[none:category:nk]</rows>
+        <cols>[textscan.quality].[sum:amount:qk]</cols>
+      </table>
+    </worksheet>
+  </worksheets>
+  <dashboards>
+    <dashboard name="Executive Dashboard">
+      <style />
+      <size maxheight="850" maxwidth="1400" minheight="850" minwidth="1400" sizing-mode="fixed" />
+      <zones>
+        <zone id="1" type-v2="text" x="1000" y="1000" w="98000" h="8000">
+          <formatted-text>
+            <run bold="true" fontsize="20">Brazilian market | Historical data quality and analytics</run>
+          </formatted-text>
+        </zone>
+        <zone id="2" type-v2="text" x="1000" y="8500" w="98000" h="5000">
+          <formatted-text>
+            <run fontsize="11">1998–2020 accepted subset | Integer-volume policy | Unadjusted prices; classification labels may be indices</run>
+          </formatted-text>
+        </zone>
+        <zone id="3" name="Source stock records" x="1000" y="14500" w="23750" h="14500" show-title="true">
+          <zone-style>
+            <format attr="border-color" value="#DCE6EB" />
+            <format attr="border-style" value="solid" />
+            <format attr="border-width" value="1" />
+          </zone-style>
+        </zone>
+        <zone id="4" name="Accepted stock records" x="25750" y="14500" w="23750" h="14500" show-title="true">
+          <zone-style>
+            <format attr="border-color" value="#DCE6EB" />
+            <format attr="border-style" value="solid" />
+            <format attr="border-width" value="1" />
+          </zone-style>
+        </zone>
+        <zone id="5" name="Company identifiers" x="50500" y="14500" w="23750" h="14500" show-title="true">
+          <zone-style>
+            <format attr="border-color" value="#DCE6EB" />
+            <format attr="border-style" value="solid" />
+            <format attr="border-width" value="1" />
+          </zone-style>
+        </zone>
+        <zone id="6" name="Acceptance (%)" x="75250" y="14500" w="23750" h="14500" show-title="true">
+          <zone-style>
+            <format attr="border-color" value="#DCE6EB" />
+            <format attr="border-style" value="solid" />
+            <format attr="border-width" value="1" />
+          </zone-style>
+        </zone>
+        <zone id="7" name="Top classification volume (units)" x="1000" y="30000" w="48500" h="33500" show-title="true">
+          <zone-style>
+            <format attr="border-color" value="#DCE6EB" />
+            <format attr="border-style" value="solid" />
+            <format attr="border-width" value="1" />
+          </zone-style>
+        </zone>
+        <zone id="8" name="Mean unadjusted price change (%)" x="50500" y="30000" w="48500" h="33500" show-title="true">
+          <zone-style>
+            <format attr="border-color" value="#DCE6EB" />
+            <format attr="border-style" value="solid" />
+            <format attr="border-width" value="1" />
+          </zone-style>
+        </zone>
+        <zone id="9" name="Top return observation counts" x="1000" y="64500" w="48500" h="33500" show-title="true">
+          <zone-style>
+            <format attr="border-color" value="#DCE6EB" />
+            <format attr="border-style" value="solid" />
+            <format attr="border-width" value="1" />
+          </zone-style>
+        </zone>
+        <zone id="10" name="Quality outcomes" x="50500" y="64500" w="48500" h="33500" show-title="true">
+          <zone-style>
+            <format attr="border-color" value="#DCE6EB" />
+            <format attr="border-style" value="solid" />
+            <format attr="border-width" value="1" />
+          </zone-style>
+        </zone>
+      </zones>
+    </dashboard>
+  </dashboards>
+  <windows>
+    <window class="worksheet" name="Source stock records" />
+    <window class="worksheet" name="Accepted stock records" />
+    <window class="worksheet" name="Company identifiers" />
+    <window class="worksheet" name="Acceptance (%)" />
+    <window class="worksheet" name="Top classification volume (units)" />
+    <window class="worksheet" name="Mean unadjusted price change (%)" />
+    <window class="worksheet" name="Top return observation counts" />
+    <window class="worksheet" name="Quality outcomes" />
+    <window class="dashboard" name="Executive Dashboard" maximized="1" />
+  </windows>
+</workbook>
